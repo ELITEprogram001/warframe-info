@@ -5,6 +5,7 @@ require('dotenv').config()
 const port = process.env.PORT || 5055
 
 app.use(express.json())
+app.use('/imgs', express.static('imgs'))
 app.use('/', express.static('build'))
 
 app.use('/api/v1/items', ItemRouter)

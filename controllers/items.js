@@ -23,7 +23,7 @@ const getItem = (req, res) => {
     const { name } = req.params
     const itemJSON = items.find(item => {
         console.log(`searching item: ${item.uniqueName}`)
-        return item.uniqueName == '/Lotus/Weapons/Corpus/LongGuns/ChainLightningGun/ChainLightningRifle'
+        return item.name == name
     })
     res.status(200).json({
         status: 'success',
