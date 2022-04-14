@@ -1,5 +1,5 @@
 const Items = require('warframe-items')
-const items = new Items({ category: ['Primary'] })
+const items = new Items({ category: ['Primary', 'Melee', 'Secondary'] })
 
 const getUniqueNameFromURL = (urlName) => {
     // return urlName.
@@ -25,11 +25,19 @@ const getItem = (req, res) => {
         console.log(`searching item: ${item.uniqueName}`)
         return item.name == name
     })
-    res.status(200).json({
-        status: 'success',
-        msg: `Retrieving item ${name} information`,
-        data: itemJSON
-    })
+    if(typeof itemJSON !== 'undefined') {
+        res.status(200).json({
+            status: 'success',
+            msg: `Retrieving item ${name} information`,
+            data: itemJSON
+        })
+    } else {
+        res.status(404).json({
+            status: 'failed',
+            msg: `Unable to find item: ${name}`,
+        })
+    }
+    
 }
 
 module.exports = {
