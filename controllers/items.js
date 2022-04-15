@@ -1,5 +1,5 @@
 const Items = require('warframe-items')
-const items = new Items({ category: ['Primary', 'Melee', 'Secondary'] })
+const items = new Items()
 
 const getUniqueNameFromURL = (urlName) => {
     // return urlName.
