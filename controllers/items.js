@@ -1,5 +1,10 @@
 const Items = require('warframe-items')
-const items = new Items()
+const items = new Items({
+    category: ['Arcanes', 'Archwing', 'Arch-Gun', 'Arch-Melee',
+               'Fish', 'Gear', 'Melee',
+               'Pets', 'Primary', 'Relics', 'Resources',
+               'Secondary', 'Sentinels']
+})
 
 const getUniqueNameFromURL = (urlName) => {
     // return urlName.
@@ -7,12 +12,24 @@ const getUniqueNameFromURL = (urlName) => {
 
 const getAllItems = (req, res) => {
     
-    const { p } = req.query
-    page = items.slice((p - 1) * 30, p * 30)
-    
+    const { p, f } = req.query
+    if(f) {
+        let filteredCount = 0
+        filteredItems = items.filter(item => {
+            if(item.category === f) {
+                filteredCount += 1
+                return item
+            }
+        })
+        console.log(`found ${filteredCount} items in category ${f}`)
+        page = filteredItems.slice((p - 1) * 30, p * 30)
+    } else {
+        page = items.slice((p - 1) * 30, p * 30)
+    }
+
     res.status(200).json({
         status: 'success',
-        msg: `Retrieving the first 30 items`,
+        msg: `Retrieving 30 items`,
         data: {
             items: page
         }
