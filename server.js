@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const ItemRouter = require('./routes/items')
+const NodeRouter = require('./routes/nodes')
 require('dotenv').config()
 const port = process.env.PORT || 5055
 
@@ -9,6 +10,7 @@ app.use('/imgs', express.static('imgs'))
 app.use('/', express.static('build'))
 
 app.use('/api/v1/items', ItemRouter)
+app.use('/api/v1/nodes/', NodeRouter)
 
 app.get('/api/v1', (req, res) => {
     res.json({
